@@ -76,3 +76,46 @@ Troubleshooting and improvements:
 - Ensured JSON is properly parsed and returned to callers.
 
 This utility enhances modularity and maintainability by isolating external data fetching logic, supporting the main game initialization flow.
+
+Created the GameBoard class responsible for displaying and managing a 10x10 flat-top hexagonal grid.
+
+Features:
+- Dynamically renders a grid of hexagons sized by configurable rows, columns, and hex side length.
+- Calculates precise positioning for hexes using flat-top hex geometry, including staggered vertical offsets for odd columns.
+- Highlights hexes on mouse hover and selection with corresponding CSS classes.
+- Plays sound effects for hover and click events utilizing the existing Sound class.
+- Supports toggling selection states; clicking on a hex selects or deselects it, and clicking outside deselects any active hex.
+- Uses event listeners bound to each hex and the container background for interaction handling.
+
+Technical details:
+- Container sizing is dynamically adjusted based on grid dimensions to ensure correct layout and clipping.
+- Prevents event bubbling on hex clicks to avoid unintended deselect events on the container.
+- Tracks the currently selected hex via `activeHex` for efficient state management.
+- Exposes the class on the global window object to allow integration with other modules.
+
+Troubleshooting & improvements:
+- Tested responsiveness of hover and click interactions to ensure only one hex is selected at a time.
+- Verified correct positioning to prevent visual overlap or gaps between hexes.
+- Added safeguards to avoid flickering or multiple selections.
+- Confirmed sound effects play correctly on all interactions without delays or overlap issues.
+
+This commit provides the core UI interaction layer for the Monster Mayhem board, enabling further development of gameplay mechanics and visual enhancements.
+Introduced the Path class to manage pathfinding and visual path highlighting on the hexagonal game board.
+
+Features:
+- Initialized with a GameBoard instance to interact directly with its grid and DOM.
+- Listens for mousemove events on the board container to track hover over hexes.
+- If a hex is hovered while another hex is selected, computes the shortest path between them.
+- Highlights the computed path by applying a 'hex-path' CSS class to involved hexes.
+- Clears path highlighting when hovering off or on the selected hex, or on clicking the board background.
+- Uses a breadth-first search (BFS) algorithm adapted for flat-top hex grids with offset coordinates.
+- Differentiates neighbors based on whether the column index is even or odd, accounting for staggered hex layout.
+- Maintains internal state of currently highlighted hexes to allow clean removal before updating the path.
+
+Technical details:
+- Stores visited nodes and parents in a BFS to reconstruct the path once the goal is reached.
+- Efficiently updates UI highlighting without redrawing or regenerating hex elements.
+- Integrates seamlessly with GameBoard's hex data attributes for quick DOM queries.
+
+This implementation enables dynamic, user-friendly visualization of movement or route planning on the hex grid, foundational for tactical gameplay mechanics in Monster Mayhem.
+
