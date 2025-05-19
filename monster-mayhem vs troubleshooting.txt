@@ -1,0 +1,11 @@
+Added Sound class for UI feedback using hover and click audio
+
+Added JSON data for enemy units with stats and image paths
+
+Implemented main app initialization with sound preload, game board setup, and character data loading
+
+Added JsonLoader class for asynchronous loading of game JSON data
+
+Implemented GameBoard class for rendering interactive hex grid with sound feedback
+
+Added Path class for hex grid pathfinding and route highlighting
